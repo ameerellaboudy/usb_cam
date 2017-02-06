@@ -180,10 +180,6 @@ public:
       cam_.set_v4l_parameter("sharpness", sharpness_);
     }
 
-    if (gain_ >= 0)
-    {
-      cam_.set_v4l_parameter("gain", gain_);
-    }
 
     // check auto white balance
     if (auto_white_balance_)
@@ -202,7 +198,16 @@ public:
       // turn down exposure control (from max of 3)
       cam_.set_v4l_parameter("exposure_auto", 1);
       // change the exposure level
+      cam_.set_v4l_parameter("exposure_absolute", 1);
+      sleep(1);
       cam_.set_v4l_parameter("exposure_absolute", exposure_);
+    }
+
+    if (gain_ >= 0)
+    {
+      cam_.set_v4l_parameter("gain", 0);
+      sleep(1);	
+      cam_.set_v4l_parameter("gain", gain_);
     }
 
     // check auto focus
